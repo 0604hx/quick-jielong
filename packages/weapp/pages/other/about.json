@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "t-tag": "tdesign-miniprogram/tag/tag",
+        "t-result": "tdesign-miniprogram/result/result"
+    }
+}

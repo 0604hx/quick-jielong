@@ -1,0 +1,34 @@
+<t-navbar title="{{ bean.title }}" left-arrow="{{ !showHome }}" bind:fail="onBackFail">
+    <t-icon wx:if="{{ showHome }}" slot="left" size="40rpx" bind:tap="onBackFail" name="home" />
+</t-navbar>
+<view class="c" wx:if="{{ loading }}"> <t-loading theme="circular" text="加载中..." layout="vertical" /> </view>
+<t-empty class="mt-2" wx:elif="{{ !bean.id }}" icon="info-circle-filled" description="您查看的接龙不存在😔" />
+<view wx:else class="p-2">
+    <t-cell-group>
+        <t-cell title="接龙编号" hover bind:tap="copyID" note="{{ bean.id }}" />
+        <t-cell title="创建日期" note="{{ bean.addOn }}" />
+        <t-cell wx:if="{{ bean.day }}" title="指定日期" note="{{ bean.day }}" />
+        <t-cell wx:if="{{ bean.expire }}" title="截止日期" note="{{ bean.expire }}" />
+        <t-cell wx:if="{{ bean.summary }}" description="{{ bean.summary }}" /> <!-- title="描述信息"  -->
+    </t-cell-group>
+
+    <view class="mt-2"></view>
+    <t-cell-group class="items">
+        <t-input wx:for="{{ items }}" maxlength="{{ 20 }}" placeholder="{{ tip }}"
+            data-index="{{ index }}" bind:change="onInput"  readonly="{{ joined || item.uid }}"
+            value="{{ item.content }}">
+            <view slot="label">
+                <t-tag size="large" class="seq">{{ item.seq||(index+1) }}</t-tag>
+                <t-tag wx:if="{{ item.prefix }}" size="large">{{ item.prefix }}</t-tag>
+            </view>
+
+            <t-button wx:if="{{ !joined && !item.uid }}" slot="suffix" disabled="{{ !item.content }}" data-index="{{ index }}"
+                size="extra-small" bind:tap="joinDo" theme="primary">
+                参与接龙
+            </t-button>
+            <t-button wx:elif="{{ item.uid && joined && item.uid == uid }}" slot="suffix" size="extra-small" theme="danger" data-index="{{ index }}" bind:tap="toCancel">
+                取消接龙
+            </t-button>
+        </t-input>
+    </t-cell-group>
+</view>

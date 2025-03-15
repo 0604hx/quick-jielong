@@ -1,0 +1,23 @@
+{
+    "name": "quick-jielong",
+    "version": "1.0.0",
+    "description": "快接龙小程序前后端代码",
+    "main": "index.js",
+    "scripts": {
+        "serve": "pnpm -F server dev",
+        "serve:init": "pnpm -F server dev --init",
+        "serve:sql": "pnpm -F server dev --sql",
+        "serve:key": "pnpm -F server dev --key",
+        "serve:query": "pnpm -F server dev --query",
+        "serve:build": "pnpm -F server build"
+    },
+    "keywords": [],
+    "author": "0604hx/集成显卡",
+    "license": "MIT",
+    "devDependencies": {
+        "@rsbuild/core": "^1.2.11"
+    },
+    "dependencies": {
+        "sm-crypto": "^0.3.13"
+    }
+}

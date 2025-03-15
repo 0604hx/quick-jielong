@@ -1,0 +1,14 @@
+{
+    "usingComponents": {
+        "t-loading": "tdesign-miniprogram/loading/loading",
+        "t-icon": "tdesign-miniprogram/icon/icon",
+        "t-tag": "tdesign-miniprogram/tag/tag",
+        "t-input": "tdesign-miniprogram/input/input",
+        "t-switch": "tdesign-miniprogram/switch/switch",
+        "t-empty": "tdesign-miniprogram/empty/empty",
+        "t-cell": "tdesign-miniprogram/cell/cell",
+        "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",
+        "t-swipe-cell": "tdesign-miniprogram/swipe-cell/swipe-cell",
+        "t-popup": "tdesign-miniprogram/popup/popup"
+    }
+}

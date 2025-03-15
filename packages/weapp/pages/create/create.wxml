@@ -1,0 +1,93 @@
+<t-navbar title="创建接龙" left-arrow />
+<t-result wx:if="{{ !authed }}" class="mt-2" theme="error" title="仅限授权人员创建接龙" description="请联系管理员开通权限" />
+<block wx:else>
+    <t-cell-group theme="card" style="margin-top: 20rpx;">
+        <t-input label="接龙标题" maxlength="{{ 20 }}" placeholder="标题内容" model:value="{{ title }}"/>
+        <t-input label="描述信息" maxlength="{{ 80 }}" placeholder="接龙的详细信息" model:value="{{ summary }}"/>
+        <t-cell title="接龙模式">
+            <t-radio-group default-value="{{ mode }}" slot="note" bind:change="onMode">
+                <t-radio block="{{false}}" label="按顺序" value="{{ 0 }}" />
+                <t-radio block="{{false}}" style="margin-left: 20px;" label="自由选择" value="{{ 1 }}" />
+            </t-radio-group>
+        </t-cell>
+        <t-cell title="人数上限">
+            <t-stepper slot="note" theme="filled" defaultValue="{{ quantity }}" bind:change="onQuantity" />
+        </t-cell>
+        <t-cell title="内容脱敏">
+            <t-switch defaultValue="{{ secret }}" slot="note" bind:change="onSecret" />
+        </t-cell>
+        <!-- <t-cell title="选择日期" hover note="{{day || ''}}" arrow data-mode="date" bind:click="toDate" /> -->
+        <t-cell title="截止时间" hover note="{{expireText || '无限制'}}" arrow bind:click="toExpire" />
+    </t-cell-group>
+
+    <block wx:if="{{ mode == 1 }}">
+        <view class="p-2">接龙细则</view>
+        <t-cell-group theme="card">
+            <t-input label="条目前缀" maxlength="{{ 20 }}" placeholder="显示在每个条目前" model:value="{{ prefix }}"
+                suffixIcon="{{ { name: 'info-circle-filled', ariaLabel: '提示' } }}" 
+                bind:click="prefixClick" 
+            />
+            <t-cell>
+                <t-button slot="right-icon" block bind:tap="buildEntries" variant="outline" theme="primary">接龙条目预览</t-button>
+            </t-cell>
+        </t-cell-group>
+
+        <block wx:if="{{ entries.length }}">
+            <view class="p-2">接龙预览（ {{ entries.length }} 条）</view>
+            <t-cell-group wx:if="{{ entries.length }}"  theme="card">
+                <t-swipe-cell wx:for="{{ entries }}">
+                    <t-input placeholder="前缀内容" value="{{ item.prefix }}" data-index="{{ index }}" bind:change="updatePrefix">
+                        <t-tag slot="prefix-icon" size="small" style="width:24px;justify-content: center;">{{ item.seq }}</t-tag>
+                    </t-input>
+                    <view slot="right" class="btn btn-del" data-index="{{ index }}" bind:tap="delEntry">删除</view>
+                </t-swipe-cell>
+            </t-cell-group>
+        </block>
+    </block>
+
+    <view class="p-2">
+        <t-button loading="{{ loading }}" bind:tap="toCreate" theme="primary" block size="large">发起接龙</t-button>
+    </view>
+</block>
+
+<t-popup visible="{{ showTip }}" placement="bottom" close-btn bind:visible-change="prefixClick">
+    <view class="p-2 header">
+        <t-icon name="info-circle-filled" size="1.3em" />
+        <text class="title">前缀信息</text>
+    </view>
+    <view style="padding: 20rpx;">
+        <t-tag variant="light" theme="primary">前缀</t-tag>显示在每一条接龙信息前，支持生成⌈序列内容⌋，格式为
+        <t-tag variant="light" theme="primary">A(+BC)D</t-tag>：
+        <view style="padding: 10rpx 20rpx 10rpx 20rpx;">
+            <view><t-tag variant="light" theme="primary">A</t-tag>：一个以数字结尾的字符串</view>
+            <view><t-tag variant="light" theme="primary">B</t-tag>：一组数值</view>
+            <view><t-tag variant="light" theme="primary">C</t-tag>：一个小写字母，如 m（分钟）、h（时）、d（天）</view>
+            <view><t-tag variant="light" theme="primary">D</t-tag>：任意文本</view>
+        </view>
+        <view class="h mt-2">普通文本递增</view>
+        <view>
+            <view>输入：第1(+1)排</view>
+            <view>结果：第1排、第2排、第3排 ...</view>
+        </view>
+        <view class="h mt-2">从10:00开始每隔半小时</view>
+        <view>
+            <view>输入：10:00(+30m)</view>
+            <view>结果：10:00、10:30、11:00 ...</view>
+        </view>
+        <view class="h mt-2">从10:00开始每隔2小时</view>
+        <view>
+            <view>输入：10:00(+2h)</view>
+            <view>结果：10:00、12:00、14:00 ...</view>
+        </view>
+        <view class="h mt-2">从2025-01-01开始每隔一天</view>
+        <view>
+            <view>输入：2025-01-01(+1d)</view>
+            <view>结果：2025-01-01、2025-01-02、2025-01-03 ...</view>
+        </view>
+    </view>
+</t-popup>
+
+<!--报错：Cannot read property 'extend' of undefined，疑似无法引入 dayjs-->
+<t-date-time-picker auto-close title="选择日期" visible="{{ expireShow }}" mode="second" 
+    value="{{ expireDate }}" format="{{ null }}" start="{{ minDate }}"
+    bindchange="onExpire" />

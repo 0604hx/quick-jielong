@@ -1,0 +1,16 @@
+<t-navbar title="发起成功" left-arrow />
+<t-result theme="success" class="mt-2" title="接龙已创建" description="分享给朋友/群聊让他人参与吧😄" />
+<view class="p-2">
+    <t-button size="large" class="mt-2" theme="light" block open-type="share">立即分享</t-button>
+    <t-button size="large" class="mt-2" theme="light" block bind:tap="toDetail">查看详情</t-button>
+    <t-button size="large" class="mt-2" theme="light" block bind:tap="toHome">返回首页</t-button>
+</view>
+<!-- <view class="result">
+    <van-icon name="success" class="primary" color2="#7fddad" size="8em" />
+
+    <van-button size="large" custom-class="mt-2" type="primary" block bind:click="toShare" open-type="share">
+        立即分享
+    </van-button>
+    <van-button size="large" plain custom-class="mt-2" type="primary" block bind:click="toDetail">查看详情</van-button>
+    <van-button size="large" plain custom-class="mt-2" type="primary" block bind:click="toHome">返回首页</van-button>
+</view> -->

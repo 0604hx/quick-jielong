@@ -1,0 +1,61 @@
+<t-navbar title="系统管理" left-arrow />
+<t-tabs defaultValue="overview" bind:change="onTabsChange" sticky sticky-props="{{ { offsetTop } }}">
+    <t-tab-panel label="仪表盘" value="overview">
+        <view wx:if="{{ !loading }}" style="padding: 20rpx;">
+            <view class="title">7日内新增</view>
+            <t-grid column="{{ 3 }}">
+                <t-grid-item icon="{{ {name:'user-circle',  size} }}" text="用户" badge-props="{{ { count:v.recentUser, showZero, color, maxCount } }}" />
+                <t-grid-item icon="{{ {name:'root-list', size} }}" text="接龙" badge-props="{{ { count:v.recentJielong, showZero, color, maxCount } }}" />
+                <t-grid-item icon="{{ {name:'chat-bubble-1', size} }}" text="条目" badge-props="{{ { count:v.recentEntry, showZero, color, maxCount } }}" />
+            </t-grid>
+            <view class="title mt-1">全量统计</view>
+            <t-grid column="{{ 3 }}">
+                <t-grid-item icon="{{ {name:'user-circle', size} }}" text="用户"  badge-props="{{ { count:v.user, showZero, color, maxCount } }}" />
+                <t-grid-item icon="{{ {name:'root-list', size} }}" text="接龙" badge-props="{{ { count:v.jielong, showZero, color, maxCount } }}" />
+                <t-grid-item icon="{{ {name:'chat-bubble-1', size} }}" text="条目" badge-props="{{ { count:v.entry, showZero, color, maxCount } }}" />
+            </t-grid>
+
+            <view class="title mt-1">系统监控</view>
+            <t-cell-group>
+                <t-cell title="后端启动" hover note="{{ v.uptime }}" />
+                <t-cell title="运行环境" hover note="{{ v.os }}"/>
+                <t-cell title="内存使用" hover note="{{ v.mem }}"/>
+                <t-cell title="数据文件" hover note="{{ v.db }}" />
+                <t-cell title="缓存大小" hover note="{{ v.cache }}" />
+            </t-cell-group>
+            <t-footer class="mt-1" text="更新于 {{ v.updateOn }}" />
+        </view>
+    </t-tab-panel>
+    <t-tab-panel label="权限申请" value="apply">
+        <t-cell-group>
+            <t-swipe-cell wx:for="{{ applys }}" >
+                <t-cell title="{{ item.uid }}" hover description="申请于 {{ item.addOn }}"></t-cell>
+                <view slot="right" style="height: 100%;">
+                    <view class="btn btn-primary" data-index="{{ index }}" data-action="done" bind:tap="dealApply">同意</view>
+                    <view class="btn btn-edit" data-index="{{ index }}" data-type="apply" style="width: 160rpx;"  bind:tap="renameUser">修改名称</view>
+                    <view class="btn btn-del" data-index="{{ index }}" data-action="del" bind:tap="dealApply">删除</view>
+                </view>
+            </t-swipe-cell>
+        </t-cell-group>
+        <t-footer class="mt-1" text="{{ applyText }}" />
+    </t-tab-panel>
+    <t-tab-panel label="授权用户" value="user">
+        <t-cell-group>
+            <t-swipe-cell wx:for="{{ users }}" >
+                <t-cell hover note="{{ item.addOn }}">
+                    <view slot="title">
+                        {{item.name}}
+                        <t-tag variant="light" theme="primary" size="large" class="ml-1">{{ item.role }}</t-tag>
+                    </view>
+                    <!-- <t-tag slot="note" variant="light" theme="primary" size="large">{{ item.role }}</t-tag> -->
+                </t-cell>
+                <view slot="right" style="height: 100%;">
+                    <view class="btn btn-primary" data-index="{{ index }}" style="width: 160rpx;"  bind:tap="copyUid">复制ID</view>
+                    <view class="btn btn-edit" data-index="{{ index }}" style="width: 160rpx;"  bind:tap="renameUser">修改名称</view>
+                    <view class="btn btn-del" data-index="{{ index }}" style="width: 160rpx;"  bind:tap="dealUser">移除角色</view>
+                </view>
+            </t-swipe-cell>
+        </t-cell-group>
+        <t-footer class="mt-1" text="显示 50 个已授权用户" />
+    </t-tab-panel>
+</t-tabs>

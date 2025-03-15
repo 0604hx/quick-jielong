@@ -1,0 +1,7 @@
+.tip {
+    display: inline;
+    color: var(--td-text-color-placeholder, var(--td-font-gray-3, rgba(0, 0, 0, 0.4)));
+    font-size: 20rpx;
+    line-height: 40px;
+    margin-left: 4px;
+}

@@ -1,0 +1,11 @@
+{
+    "usingComponents": {
+        "t-icon": "tdesign-miniprogram/icon/icon",
+        "t-loading": "tdesign-miniprogram/loading/loading",
+        "t-empty": "tdesign-miniprogram/empty/empty",
+        "t-tag": "tdesign-miniprogram/tag/tag",
+        "t-input": "tdesign-miniprogram/input/input",
+        "t-cell": "tdesign-miniprogram/cell/cell",
+        "t-cell-group": "tdesign-miniprogram/cell-group/cell-group"
+    }
+}

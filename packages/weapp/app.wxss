@@ -1,0 +1,150 @@
+@import 'miniprogram_npm/tdesign-miniprogram/common/style/theme/_index.wxss';
+
+page, .page {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
+    /* height: 100vh;
+    display: flex;
+    flex-direction: column; */
+}
+
+@media (prefers-color-scheme: light) {
+    page {
+        --td-navbar-bg-color: #ffffff;
+        --td-bg-color-container: #f7f8f9;
+        --td-tab-nav-bg-color: #ffffff;
+        /* --td-radio-bg-color: #f7f8f9;
+        --td-input-bg-color: #f7f8f9; */
+        /* --td-cell-bg-color: #f7f8f9; */
+        /* --td-grid-item-bg-color: #f7f8f9; */
+        /* --td-bg-color-container: #f5f6f7; */
+        /* --td-cell-border-color: #999999; */
+    }
+}
+@media (prefers-color-scheme: dark) {
+    page {
+        --td-tab-nav-bg-color: #191919;
+    }
+    .t-tabs__wrapper {
+        background: #242424 !important;
+    }
+}
+
+.primary {
+    /*color: #07c160;*/
+    color: #0052d9;
+}
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 200rpx 0;
+    box-sizing: border-box;
+}
+
+.scroll {
+    flex: 1;
+    overflow-y: hidden;
+    background: #f5f6f7;
+}
+.body {
+    flex: 1;
+    padding: 20rpx;
+}
+.title {
+    padding: 3px 0 8px 0;
+}
+.mt-1 {
+    margin-top: 8px;
+}
+.mt-2 {
+    margin-top: 16px;
+}
+.ml-1 {
+    margin-left: 8px;
+}
+.mr-1 {
+    margin-right: 8px;
+}
+.p-2 {
+    padding: 30rpx;
+}
+/* 底部广告 */
+.buttomAD {
+    margin-bottom: 40rpx;
+    height: 200rpx;
+    text-align: center;
+}
+.version {
+    margin: 10rpx 0rpx 40rpx 0rpx;
+    text-align: center;
+}
+.c {
+    text-align: center;
+}
+.l {
+    text-align: left;
+}
+.r {
+    text-align: right;
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+.hide {
+    visibility: hidden;
+}
+.h {
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(69,90,100,.6);
+}
+.b {
+    font-weight: bold;
+}
+.h-full {
+    height: 100%;
+}
+.h-full .van-button {
+    height: 100%;
+}
+
+/* =========================== APP =========================== */
+.btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 120rpx;
+    height: 100%;
+    color: white;
+}
+
+.btn-del {
+    background-color: #e34d59;
+}
+.btn-primary {
+    background-color: var(--td-brand-color, #0052d9);
+}
+.btn-edit {
+    background-color: #ed7b2f;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.header .title {
+    flex: 1;
+    font-weight: 600;
+    font-size: 36rpx;
+    padding: 0px 12rpx 0px 12rpx;
+    color: var(--td-text-color-primary);
+}
+/* .t-tab-panel {
+    padding: 20rpx;
+} */

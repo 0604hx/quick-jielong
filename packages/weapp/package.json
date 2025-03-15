@@ -1,0 +1,16 @@
+{
+    "name": "weapp",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "keywords": [
+        "快接龙",
+        "微信小程序"
+    ],
+    "author": "0604hx/集成显卡",
+    "license": "MIT",
+    "dependencies": {
+        "dayjs": "^1.11.13",
+        "tdesign-miniprogram": "^1.8.6"
+    }
+}

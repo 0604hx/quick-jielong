@@ -1,0 +1,8 @@
+<t-navbar title="功能未授权" left-arrow bind:fail="onBackFail"/>
+<t-result class="mt-2" theme="warning" title="您访问的功能仅限授权人员">
+    <view slot="description" style="text-align: left;">
+        <view>1、<t-tag size="extra-small" style="margin-right: 3px;">快接龙</t-tag>是一个公益性小程序</view>
+        <view>2、仅限授权人员发布符合法规的接龙信息</view>
+        <view>3、如有疑问请联系客服</view>
+    </view>
+</t-result>

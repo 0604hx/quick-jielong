@@ -1,0 +1,26 @@
+<t-navbar title="{{ appName }}" />
+<view class="c" wx:if="{{ loading }}"> <t-loading theme="circular" text="加载中..." layout="vertical" /> </view>
+<t-result wx:elif="{{ fail }}" class="mt-2" theme="error" title="数据获取失败" description="请检查网络环境" />
+<view wx:elif="{{ beans.length }}">
+    <t-cell-group wx:for="{{ beans }}" theme="card" style="margin-top: 20rpx;">
+        <t-cell title="{{ item.title }}" hover data-id="{{ item.id }}" bind:click="toDetail">
+            <view slot='description'>
+                <t-tag size="small" style="margin-right: 4px;">参与于 {{ item.addOn }}</t-tag>
+                <t-tag wx:if="{{ item.day }}" size="small" style="margin-right: 4px;">{{ item.day }}</t-tag>
+                {{ item.summary }}
+            </view>
+        </t-cell>
+    </t-cell-group>
+    <t-footer class="mt-1" text="显示最近 20 条数据" />
+</view>
+<t-empty wx:else icon="info-circle-filled" class="mt-2">
+    <view slot="description">
+        <view>暂未参与接龙，请联系管理员发布接龙</view>
+        <view>也可点击右下角⚙申请相应权限</view>
+    </view>
+</t-empty>
+
+<t-footer class="footer" text="{{ footer }}"></t-footer>
+<t-icon class="menu" name="setting-1" size="22px" color="#0052d9dd" bind:tap="toMenu"/>
+
+<t-action-sheet id="menus" usingCustomNavbar bind:selected="onSelect" />

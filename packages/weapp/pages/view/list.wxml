@@ -1,0 +1,43 @@
+<t-navbar title="我发起的接龙" left-arrow />
+<view class="c" wx:if="{{ loading }}"> <t-loading theme="circular" text="加载中..." layout="vertical" /> </view>
+<t-cell-group wx:elif="{{ beans.length }}">
+    <t-swipe-cell wx:for="{{ beans }}" >
+        <t-cell title="{{ item.title }}" hover data-id="{{ item.id }}" arrow bind:click="toDetail">
+            <view slot='description'>
+                <t-tag size="small">{{ mine?"发起":"参与" }}于 {{ item.addOn }}</t-tag>
+                <t-tag wx:if="{{ item.day }}" size="small" style="margin: 0px 4px 0px 4px;">{{ item.day }}</t-tag>
+                {{ item.summary }} 
+            </view>
+        </t-cell>
+        <view slot="right" style="height: 100%;">
+            <view class="btn btn-primary" data-index="{{ index }}" bind:tap="toCopy">复制</view>
+            <view class="btn btn-edit" data-index="{{ index }}" style="width: 160rpx;" bind:tap="toModifyTitle">修改标题</view>
+            <view class="btn btn-del" data-index="{{ index }}" bind:tap="toDel">删除</view>
+        </view>
+    </t-swipe-cell>
+</t-cell-group>
+<t-empty wx:else icon="info-circle-filled" class="mt-2" description="还没创建过接龙噢">
+    <t-button slot="action" theme="primary" size="large" bind:tap="toCreate">现在创建接龙</t-button>
+</t-empty>
+
+<t-popup visible="{{ showCopy }}" placement="bottom" close-btn bind:visible-change="openCopy">
+    <view class="p-2 header">
+        <t-icon name="setting-1" size="1.3em" />
+        <text class="title">复制选项</text>
+    </view>
+    <t-cell-group>
+        <t-input label="接龙标题" maxlength="{{ 20 }}" placeholder="标题内容" model:value="{{ title }}"/>
+        <t-cell title="日期自动更新" description="接龙日期更新为今日">
+            <t-switch defaultValue="{{ copyUpdate }}" slot="note" bind:change="onCopyUpdate" />
+        </t-cell>
+        <t-cell title="复制接龙信息" description="用户填写信息是否复制">
+            <t-switch defaultValue="{{ copyData }}" slot="note" bind:change="onCopyData" />
+        </t-cell>
+        <t-cell title="删除旧接龙" description="仅保留拷贝后的数据">
+            <t-switch defaultValue="{{ copyDel }}" slot="note" bind:change="onCopyDel" />
+        </t-cell>
+    </t-cell-group>
+    <view class="p-2 c">
+        <t-button size="large" bind:tap="copyDo" theme="primary" block>复制</t-button>
+    </view>
+</t-popup>

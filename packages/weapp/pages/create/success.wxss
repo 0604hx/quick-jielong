@@ -1,0 +1,5 @@
+.result {
+    margin:0px auto;
+    width: 80%;
+    text-align: center;
+}
