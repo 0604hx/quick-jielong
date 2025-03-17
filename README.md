@@ -10,10 +10,13 @@
 
 **📷 运行预览**
 
-<img src="docs/imgs/screen01.webp" alt="截图01" width="220" />
-<img src="docs/imgs/screen02.webp" alt="截图02" width="220" />
-<img src="docs/imgs/screen03.webp" alt="截图03" width="220" />
-
+<table style="border: none;">
+  <tr>
+    <td style="border: none;"><img src="docs/imgs/screen01.webp" alt="截图01" width="220" /></td>
+    <td style="border: none;"><img src="docs/imgs/screen02.webp" alt="截图02" width="220" /></td>
+    <td style="border: none;"><img src="docs/imgs/screen03.webp" alt="截图03" width="220" /></td>
+  </tr>
+</table>
 
 ## 🧑‍💻 开发说明
 
