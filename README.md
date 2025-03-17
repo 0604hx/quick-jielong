@@ -3,13 +3,21 @@
 
 简单有效的接龙形式信息收集工具
 
-## 分支说明
+**📒 系列博客**
 
-* **main**：主分支（常规版本）
-* **dev**：开发分支
-* **unlimit**：无限制版本（指信息发布），也是最初的版本（一切皆是为了过审😄）
+* [快接龙 | 一款简单高效微信小程序的设计与实现](https://blog.csdn.net/ssrc0604hx/article/details/145732357)
+* [快接龙 | 个人开发者上架微信小程序要多少钱？](https://blog.csdn.net/ssrc0604hx/article/details/145733531)
 
-### 小程序调整
+**📷 运行预览**
+
+<img src="docs/imgs/screen01.webp" alt="截图01" width="220" />
+<img src="docs/imgs/screen02.webp" alt="截图02" width="220" />
+<img src="docs/imgs/screen03.webp" alt="截图03" width="220" />
+
+
+## 🧑‍💻 开发说明
+
+### 🛠️ 小程序调整
 
 小程序上线审核被拒：`你的小程序涉及用户自行生成内容的发布/分享/交流，属社交范畴，为个人主体小程序未开放类目，建议申请企业主体小程序`
 
