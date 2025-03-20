@@ -1,10 +1,9 @@
 const { assert } = require("../common")
-const { datetime } = require("../common/date")
 const { maskText, uuidUpper } = require("../common/tool")
 const Entry = require("../db/Entry")
 const Jielong = require("../db/Jielong")
-const { PID, SEQ, ID, DAY } = require("../fields")
-const { loadJielong } = require("./CacheService")
+const { PID, SEQ, ID, DAY, ADD_ON, TITLE } = require("../fields")
+const { loadJielong, clearJielong } = require("./CacheService")
 
 exports.queryById = async (id, itemToString=false)=>{
     let bean = await loadJielong(id)
@@ -61,6 +60,9 @@ exports.joinJielong = async (id, uid, content, seqId)=>{
     if(bean.mode == Jielong.NORMAL){
         if(await Entry.count(PID, id)>=bean.quantity)
             throw `接龙人数已达上限`
+        //判断是否已经参与
+        if(await Entry.count({ pid: id, uid })>0)
+            throw `不可重复参与`
 
         let e = new Entry()
         e.pid = id
@@ -116,4 +118,23 @@ exports.loadJoined = async (uid, size=20, offset=0)=>{
 
     // return list
     return list.sort((a, b)=> b.addOn - a.addOn)
+}
+
+/**
+ * 接龙列表
+ * @param {QueryBean} bean
+ */
+exports.listJielong = async ({ offset=0, size=20, keyword })=>{
+    let q = Jielong.query()
+    if(keyword) q.whereLike(TITLE, `%${keyword}%`)
+    q.orderBy(ADD_ON, 'desc')
+    q.offset(offset).limit(size)
+
+    return await q
+}
+
+exports.delJielong = async id=>{
+    await Jielong.query().deleteById(id)
+    clearJielong(id)
+    await Entry.query().where(PID, id).delete()
 }

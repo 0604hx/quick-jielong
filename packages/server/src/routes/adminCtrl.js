@@ -1,7 +1,9 @@
 const { success, assert } = require("../common")
 const Apply = require("../db/Apply")
+const Jielong = require("../db/Jielong")
 const User = require("../db/User")
 const { STATUS, Status, TYPE, Roles, ID, ROLE, ADD_ON } = require("../fields")
+const { listJielong, delJielong } = require("../service/JielongService")
 const { dashboard, saveOpLog } = require("../service/SystemService")
 const { updateUser } = require("../service/UserService")
 const { buildOpByWechat } = require("./common")
@@ -56,5 +58,15 @@ module.exports = app=>{
 
         await updateUser(id, { name })
         saveOpLog(buildOpByWechat(req, `修改用户 ${id} 的名称为[${name}]`, User.tableName))
+    })
+
+    app.post("/system/jielong-list", async req=>{
+        return success(await listJielong(req.body))
+    })
+
+    app.post("/system/jielong-del", async req=>{
+        let { id } = req.body
+        await delJielong(id)
+        saveOpLog(buildOpByWechat(req, `删除接龙#${id}`, Jielong.tableName))
     })
 }

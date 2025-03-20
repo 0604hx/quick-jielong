@@ -8,4 +8,5 @@ module.exports = class Apply extends BaseAddonModel {
     uid     = undefined
     type    = undefined
     status  = undefined
+    summary = undefined
 }

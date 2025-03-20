@@ -2,7 +2,7 @@ const { datetime } = require("../../utils/date")
 const { RESULT } = require("../../utils/http")
 
 import ActionSheet from 'tdesign-miniprogram/action-sheet/index'
-import { ok, showConfirm } from '../../utils/util'
+import { ok, showConfirm, warn } from '../../utils/util'
 import { ROLE_ADMIN, ROLE_DATA, saveRole } from '../../utils/tool'
 
 const app = getApp()
@@ -17,7 +17,8 @@ Page({
         role: "",
         beans:[],
 
-        show: false,
+        showApply: false,
+        summary: undefined,
         actions:[]
     },
     /**
@@ -77,17 +78,13 @@ Page({
     },
     toMenu (){
         let { actions } = this.data
-        let description = actions.length?"请选择菜单":"如需创建接龙，可在小程序处点击⌈客服⌋申请授权🤝"
         ActionSheet.show({
             theme: "list",
             selector: '#menus',
             context: this,
-            description,
+            description: "请选择菜单",
             items: actions
         })
-    },
-    onClose() {
-        this.setData({ show: false })
     },
     onSelect(e) {
         let { selected } = e.detail
@@ -95,9 +92,23 @@ Page({
             wx.navigateTo({ url: selected.url, fail:console.error })
         }
         else if(selected.code == 1){
-            showConfirm(`申请权限`, `申请创建接龙的权限（需管理员点击通过），确定吗？`, ()=>{
-                RESULT("/apply-auth", {}, ()=> ok(`申请已发起`))
-            })
+            this.openApply()
         }
+    },
+    openApply (){
+        this.setData({ showApply: !this.data.showApply })
+    },
+    applyDo (){
+        let { summary } = this.data
+        let len = summary ? summary.trim().length : 0
+        if(len<=5)
+            return warn(`请填写理由`)
+        
+        showConfirm(`申请权限`, `申请创建接龙的权限（需管理员点击通过），确定吗？`, ()=>{
+            RESULT("/apply-auth", { summary }, ()=> {
+                ok(`申请已发起`)
+                this.openApply()
+            })
+        })
     }
 })

@@ -11,7 +11,7 @@
             </view>
         </t-cell>
     </t-cell-group>
-    <t-footer class="mt-1" text="显示最近 20 条数据" />
+    <t-footer class="mt-1" text="显示最近参与的 20 条接龙" />
 </view>
 <t-empty wx:else icon="info-circle-filled" class="mt-2">
     <view slot="description">
@@ -24,3 +24,17 @@
 <t-icon class="menu" name="setting-1" size="22px" color="#0052d9dd" bind:tap="toMenu"/>
 
 <t-action-sheet id="menus" usingCustomNavbar bind:selected="onSelect" />
+
+<t-popup visible="{{ showApply }}" placement="bottom" close-btn bind:visible-change="openApply">
+    <view class="p-2 header">
+        <t-icon name="lock-on" size="1.3em" />
+        <text class="title">申请权限</text>
+    </view>
+    <t-cell-group theme="card">
+        <t-textarea placeholder="请填写申请理由（不小于5个字）" model:value="{{ summary }}"
+            maxlength="50" disableDefaultPadding indicator />
+    </t-cell-group>
+    <view class="p-2 c">
+        <t-button size="large" bind:tap="applyDo" theme="primary" block>确定</t-button>
+    </view>
+</t-popup>

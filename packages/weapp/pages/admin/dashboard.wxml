@@ -26,10 +26,16 @@
             <t-footer class="mt-1" text="更新于 {{ v.updateOn }}" />
         </view>
     </t-tab-panel>
+    
     <t-tab-panel label="权限申请" value="apply">
         <t-cell-group>
             <t-swipe-cell wx:for="{{ applys }}" >
-                <t-cell title="{{ item.uid }}" hover description="申请于 {{ item.addOn }}"></t-cell>
+                <t-cell title="{{ item.uid }}" hover>
+                    <view slot="description">
+                        <t-tag size="small">申请于 {{ item.addOn }}</t-tag>
+                        <view wx:if="{{ item.summary }}">{{ item.summary }}</view>
+                    </view>
+                </t-cell>
                 <view slot="right" style="height: 100%;">
                     <view class="btn btn-primary" data-index="{{ index }}" data-action="done" bind:tap="dealApply">同意</view>
                     <view class="btn btn-edit" data-index="{{ index }}" data-type="apply" style="width: 160rpx;"  bind:tap="renameUser">修改名称</view>
@@ -39,6 +45,29 @@
         </t-cell-group>
         <t-footer class="mt-1" text="{{ applyText }}" />
     </t-tab-panel>
+    
+    <t-tab-panel label="接龙管理" value="list">
+        <t-cell-group bordered>
+            <t-swipe-cell wx:for="{{ jielongs }}" >
+                <t-cell title="{{ item.title }}" hover data-id="{{ item.id }}">
+                    <view slot='description'>
+                        <t-tag size="small" class="mr-1">{{ item.addOn }}</t-tag>
+                        <t-tag size="small" class="mr-1">{{ item.id }}</t-tag>
+                        <t-tag wx:if="{{ item.day }}" size="small" class="mr-1">{{ item.day }}</t-tag>
+                        <t-tag size="small" class="mr-1">{{ item.mode==0?"顺序":"自由" }}</t-tag>
+                        <t-tag wx:if="{{ item.secret }}" size="small" class="mr-1">脱敏</t-tag>
+                        <t-tag size="small" class="mr-1">上限 {{ item.quantity }}</t-tag>
+                        <view>{{ item.summary }}</view>
+                    </view>
+                </t-cell>
+                <view slot="right" style="height: 100%;">
+                    <view class="btn btn-del" data-index="{{ index }}" bind:tap="toDelJielong">删除</view>
+                </view>
+            </t-swipe-cell>
+        </t-cell-group>
+        <t-footer class="mt-1" text="显示 20 个最近发布的接龙" />
+    </t-tab-panel>
+    
     <t-tab-panel label="授权用户" value="user">
         <t-cell-group>
             <t-swipe-cell wx:for="{{ users }}" >

@@ -4,8 +4,8 @@
     <t-swipe-cell wx:for="{{ beans }}" >
         <t-cell title="{{ item.title }}" hover data-id="{{ item.id }}" arrow bind:click="toDetail">
             <view slot='description'>
-                <t-tag size="small">{{ mine?"发起":"参与" }}于 {{ item.addOn }}</t-tag>
-                <t-tag wx:if="{{ item.day }}" size="small" style="margin: 0px 4px 0px 4px;">{{ item.day }}</t-tag>
+                <t-tag size="small" class="mr-1">{{ mine?"发起":"参与" }}于 {{ item.addOn }}</t-tag>
+                <t-tag wx:if="{{ item.day }}" size="small" class="mr-1">{{ item.day }}</t-tag>
                 {{ item.summary }} 
             </view>
         </t-cell>

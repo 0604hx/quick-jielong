@@ -47,7 +47,7 @@ App({
     },
     globalData: {
         uid: undefined,
-        version:  isDev? "DEV" : "v25.3.4",
+        version:  isDev? "DEV" : "v25.3.20",
         author: "集成显卡",
         appName:"快接龙",
     }

@@ -8,6 +8,8 @@
         "t-footer": "tdesign-miniprogram/footer/footer",
         "t-tag": "tdesign-miniprogram/tag/tag",
         "t-cell": "tdesign-miniprogram/cell/cell",
-        "t-cell-group": "tdesign-miniprogram/cell-group/cell-group"
+        "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",
+        "t-popup": "tdesign-miniprogram/popup/popup",
+        "t-textarea": "tdesign-miniprogram/textarea/textarea"
     }
 }

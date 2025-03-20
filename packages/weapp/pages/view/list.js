@@ -97,11 +97,11 @@ Page({
     },
     toDel (e){
         let { index } = e.currentTarget.dataset
-        let { beans, title } = this.data
+        let { beans } = this.data
         showConfirm(
             `删除确认`, 
             `删除接龙⌈${beans[index].title}⌋吗？`, 
-            ()=> RESULT("/del", {id:beans[index].id, title}, ()=>{
+            ()=> RESULT("/del", {id:beans[index].id}, ()=>{
                 beans.splice(index, 1)
                 this.setData({ beans  })
             }

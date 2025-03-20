@@ -18,7 +18,9 @@ Page({
         applys: [],
         applyText: "",
 
-        users: []
+        users: [],
+
+        jielongs: []
     },
     onLoad() {
         RESULT("/system/dashboard", {}, d=>{
@@ -41,6 +43,12 @@ Page({
             RESULT("/system/user-authed", {}, d=>{
                 d.data.forEach(a=>a.addOn=datetime(a.addOn, "YYYY-MM-DD HH:mm"))
                 this.setData({ users: d.data })
+            })
+        }
+        else if(value == 'list' && this.data.jielongs.length==0){
+            RESULT("/system/jielong-list", {}, d=>{
+                d.data.forEach(a=>a.addOn=datetime(a.addOn, "YYYY-MM-DD HH:mm"))
+                this.setData({ jielongs: d.data })
             })
         }
     },
@@ -90,5 +98,18 @@ Page({
     copyUid (e){
         let { index } = e.currentTarget.dataset
         wx.setClipboardData({ data: this.data.users[index].id, success:()=>ok(`ID已复制`) })
+    },
+    toDelJielong (e){
+        let { index } = e.currentTarget.dataset
+        let { jielongs } = this.data
+        showConfirm(
+            `删除确认`, 
+            `删除接龙⌈${jielongs[index].title}⌋吗？`, 
+            ()=> RESULT("/del", {id:jielongs[index].id}, ()=>{
+                jielongs.splice(index, 1)
+                this.setData({ jielongs  })
+                ok(`接龙已删除`)
+            }
+        ))
     }
 })

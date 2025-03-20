@@ -8,7 +8,7 @@ const { createUser } = require("../service/UserService")
 const { code2Session } = require("../service/WeixinService")
 const { saveOpLog } = require("../service/SystemService")
 const User = require("../db/User")
-const { queryById, createJielong, joinJielong, cancelJielong, loadJoined } = require("../service/JielongService")
+const { queryById, createJielong, joinJielong, cancelJielong, loadJoined, delJielong } = require("../service/JielongService")
 const { ADD_ON, TITLE, PID, ID, DAY, Roles, Status, SUMMARY } = require("../fields")
 const { clearJielong } = require("../service/CacheService")
 const adminCtrl = require("./adminCtrl")
@@ -151,11 +151,10 @@ module.exports = app=>{
         let { id } = req.body
         let bean = await loadJielong(id, req.user?.id)
 
-        await Jielong.query().deleteById(id)
-        clearJielong(id)
-
-        await Entry.query().where(PID, id).delete()
-        saveOpLog(buildOpByWechat(req, `删除接龙${bean.id}/${bean.title}`, Jielong.tableName))
+        if(bean){
+            await delJielong(id)
+            saveOpLog(buildOpByWechat(req, `删除接龙${bean.id}/${bean.title}`, Jielong.tableName))
+        }
     })
 
     app.post("/modify", async req=>{
@@ -191,8 +190,11 @@ module.exports = app=>{
     app.post("/apply-auth", async req=>{
         let { id: uid } = req.user
 
+        if(await Apply.count({ uid, status: Status.PENDING})>0)
+            throw `您已提交过申请（可联系小程序客服进行审核）`
+
         /**@type {Apply} */
-        let bean = { uid }
+        let bean = { uid, summary: req.body.summary }
         bean.status = Status.PENDING
         bean.type = Apply.AUTH
         bean.addOn = Date.now()
