@@ -120,6 +120,10 @@ module.exports = app=>{
         if(title && title.trim())
             bean.title = title
 
+        //继承 origin 属性
+        if(!bean.origin)
+            bean.origin = id
+
         const trx = await Jielong.startTransaction()
         await Jielong.query(trx).insert(bean)
 

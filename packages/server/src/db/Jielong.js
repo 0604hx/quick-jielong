@@ -22,4 +22,7 @@ module.exports = class Jielong extends BaseAddonModel{
     secret  = undefined
     /**@type {Number} 过期 */
     expire  = undefined
+
+    /**@type {String} 祖宗ID，用于标识是否为同系列接龙，add on 2025-08-05*/
+    origin  = undefined
 }

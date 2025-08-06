@@ -64,8 +64,6 @@ else{
             process.exit(1)
         }
 
-        // startScheduleTasks()
-
         if(global.showSQL)  logger.info(`SHOW-SQL = true`)
 
         const v = process.env.VERSION?` (build on ${process.env.VERSION})`:""

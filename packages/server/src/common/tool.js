@@ -103,3 +103,10 @@ exports.maskText = (text, c="*")=>{
 
     return text.substring(0, t) + c.repeat(t2) + text.substring(t+t2)
 }
+
+/**
+ *
+ * @param {Number} day
+ * @returns
+ */
+exports.dayToMS = day=> day*24*60*60*1000

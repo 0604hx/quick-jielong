@@ -18,6 +18,7 @@ const config = {
     },
     appId:"wx5cfb481a6671ac83",
     appSecret:"",
+    expireDay: 5,           //默认过期天数
     db: {
         prefix: "",
         type: "sqlite3",
@@ -39,6 +40,13 @@ const config = {
         // 管理员ID
         adminIds:["oje73676eurApzp4BslyTFa4AycA"]
     },
+    /**
+     * 同系列接龙时长限定，add on 2025-08-05
+     * key 为用户ID，value 为时长（天）
+     * 设置后，如果用户参与指定用户（key）发起接龙时，判断在指定时长（value）内是否参与过同系列接龙
+     * 一旦参与，则报错
+     */
+    periodLimits:{},
     http: {
         // /common/** 资源的缓存时间，设置小于等于0则不推荐缓存头
         commonExpire: 3600
